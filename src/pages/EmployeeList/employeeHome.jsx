@@ -15,6 +15,10 @@ import { MaterialReactTable } from "material-react-table";
 import AddIcon from "@mui/icons-material/Add";
 import Logo from "../../assets/images/EMS_Logo.png";
 import { useNavigate } from "react-router";
+import {
+  handleErrorMassage,
+  handleSuccessResponse,
+} from "../../components/Tost/Response";
 
 const EmployeeHome = () => {
   const navigate = useNavigate();
@@ -68,7 +72,21 @@ const EmployeeHome = () => {
     []
   );
 
-  
+  const deleteEmployee = async (deleteId) => {
+    try {
+      const response = await Axios.delete(
+        `${process.env.REACT_APP_API_ENDPOINT}employee/${deleteId}`
+      );
+
+      if (response.status === 200) {
+        handleSuccessResponse(response.data.message);
+        fetchEmployee();
+      }
+      
+    } catch (error) {
+      handleErrorMassage(error.response.data.message);
+    }
+  };
 
   return (
     <Card>
@@ -121,10 +139,9 @@ const EmployeeHome = () => {
               </IconButton>
               <IconButton
                 color="error"
-                //   onClick={() => {
-                //     data.splice(row.index, 1); //assuming simple data table
-                //     setData([...data]);
-                //   }}
+                onClick={() => {
+                  deleteEmployee(row.original._id);
+                }}
               >
                 <DeleteIcon />
               </IconButton>
