@@ -47,7 +47,6 @@ const EmployeeEdit = () => {
       );
 
       if (response.status === 200) {
-        console.log(response.data.message);
         handleSuccessResponse(response.data.message);
         navigate("/employee/list");
       }
@@ -55,7 +54,6 @@ const EmployeeEdit = () => {
       if (error.response && error.response.status === 401) {
         window.location.reload();
       } else {
-        console.log(error.response.data);
         handleErrorMassage(error.response.data.message);
       }
     }

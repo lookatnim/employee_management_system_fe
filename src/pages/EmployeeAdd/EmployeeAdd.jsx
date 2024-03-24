@@ -29,8 +29,6 @@ const EmployeeAdd = () => {
   };
 
   const handleSubmit = (values) => {
-    // Handle form submission
-    console.log("Form values:", values);
     createEmployee(values);
   };
 
@@ -47,7 +45,6 @@ const EmployeeAdd = () => {
       );
 
       if (response.status === 200) {
-        console.log(response.data.message);
         handleSuccessResponse(response.data.message);
         navigate("/employee/list");
       }
@@ -55,7 +52,6 @@ const EmployeeAdd = () => {
       if (error.response && error.response.status === 401) {
         window.location.reload();
       } else {
-        console.log(error.response.data);
         handleErrorMassage(error.response.data.message);
       }
     }

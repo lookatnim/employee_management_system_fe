@@ -19,10 +19,13 @@ import {
   handleErrorMassage,
   handleSuccessResponse,
 } from "../../components/Tost/Response";
+import Confirm from "../../components/Tost/confirm";
 
 const EmployeeHome = () => {
   const navigate = useNavigate();
   const [empData, setEmpData] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [deletingId, setDeletingID] = useState(0);
 
   const fetchEmployee = async () => {
     try {
@@ -55,10 +58,6 @@ const EmployeeHome = () => {
       {
         accessorKey: "email",
         header: "Email",
-        // Cell: ({ renderedCellValue, row }) => {
-        //   console.log(row.original);
-        //   return <>{renderedCellValue}</>;
-        // },
       },
       {
         accessorKey: "phoneNumber",
@@ -72,15 +71,16 @@ const EmployeeHome = () => {
     []
   );
 
-  const deleteEmployee = async (deleteId) => {
+  const deleteEmployee = async () => {
     try {
       const response = await Axios.delete(
-        `${process.env.REACT_APP_API_ENDPOINT}employee/${deleteId}`
+        `${process.env.REACT_APP_API_ENDPOINT}employee/${deletingId}`
       );
 
       if (response.status === 200) {
         handleSuccessResponse(response.data.message);
         fetchEmployee();
+        handleConfirmClose();
       }
     } catch (error) {
       handleErrorMassage(error.response.data.message);
@@ -89,6 +89,11 @@ const EmployeeHome = () => {
 
   const redirectToEdit = (data) => {
     navigate(`/employee/edit/${data._id}`, { state: data });
+  };
+
+  const handleConfirmClose = () => {
+    setIsOpen(false);
+    setDeletingID(0);
   };
 
   return (
@@ -143,7 +148,8 @@ const EmployeeHome = () => {
               <IconButton
                 color="error"
                 onClick={() => {
-                  deleteEmployee(row.original._id);
+                  setDeletingID(row.original._id);
+                  setIsOpen(true);
                 }}
               >
                 <DeleteIcon />
@@ -151,6 +157,17 @@ const EmployeeHome = () => {
             </Box>
           )}
         />
+
+        {isOpen && (
+          <Confirm
+            open={isOpen}
+            desc={`Are you sure you want to delete this employee?`}
+            title="Confirm Delete"
+            buttonText="Delete"
+            handleClose={handleConfirmClose}
+            handleDelete={deleteEmployee}
+          />
+        )}
       </CardContent>
     </Card>
   );
