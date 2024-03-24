@@ -68,10 +68,10 @@ const EmployeeAdd = () => {
           <img
             src={Logo}
             alt="icon"
-            style={{ width: "75px", height: "75px" }}
+            style={{ width: "50px", height: "50px" }}
           />
         }
-        title={<Typography variant="h2">Add Employee</Typography>}
+        title={<Typography variant="h3">Add Employee</Typography>}
       />
       <CardActionArea>
         <Button
@@ -87,7 +87,7 @@ const EmployeeAdd = () => {
         </Button>
       </CardActionArea>
       <CardContent>
-        <EmployeeForm initialValues={initialValues} onSubmit={handleSubmit} />
+        <EmployeeForm initialValues={initialValues} onSubmit={handleSubmit} btnText='Submit'/>
       </CardContent>
     </Card>
   );

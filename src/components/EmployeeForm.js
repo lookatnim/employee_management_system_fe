@@ -31,7 +31,7 @@ const validationSchema = Yup.object().shape({
   gender: Yup.string().required("Gender is required"),
 });
 
-const EmployeeForm = ({ initialValues, onSubmit }) => {
+const EmployeeForm = ({ initialValues, onSubmit, btnText }) => {
   const formik = useFormik({
     initialValues,
     validationSchema,
@@ -118,7 +118,7 @@ const EmployeeForm = ({ initialValues, onSubmit }) => {
             </CardContent>
             <CardActions style={{ justifyContent: "center" }}>
               <Button type="submit" variant="contained" color="primary">
-                Submit
+                {btnText}
               </Button>
             </CardActions>
           </form>

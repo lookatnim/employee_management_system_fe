@@ -82,10 +82,13 @@ const EmployeeHome = () => {
         handleSuccessResponse(response.data.message);
         fetchEmployee();
       }
-      
     } catch (error) {
       handleErrorMassage(error.response.data.message);
     }
+  };
+
+  const redirectToEdit = (data) => {
+    navigate(`/employee/edit/${data._id}`, { state: data });
   };
 
   return (
@@ -95,10 +98,10 @@ const EmployeeHome = () => {
           <img
             src={Logo}
             alt="icon"
-            style={{ width: "75px", height: "75px" }}
+            style={{ width: "50px", height: "50px" }}
           />
         }
-        title={<Typography variant="h2">EMS</Typography>}
+        title={<Typography variant="h3">Employee Management System</Typography>}
       />
       <CardActionArea>
         <Button
@@ -131,9 +134,9 @@ const EmployeeHome = () => {
             <Box sx={{ display: "flex", flexWrap: "nowrap", gap: "8px" }}>
               <IconButton
                 color="secondary"
-                //   onClick={() => {
-                //     table.setEditingRow(row);
-                //   }}
+                onClick={() => {
+                  redirectToEdit(row.original);
+                }}
               >
                 <EditIcon />
               </IconButton>
