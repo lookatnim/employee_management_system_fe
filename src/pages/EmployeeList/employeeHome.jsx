@@ -20,12 +20,15 @@ import {
   handleSuccessResponse,
 } from "../../components/Tost/Response";
 import Confirm from "../../components/Tost/confirm";
+import EmployeeView from "../../components/Modal/EmployeeView";
 
 const EmployeeHome = () => {
   const navigate = useNavigate();
   const [empData, setEmpData] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [deletingId, setDeletingID] = useState(0);
+  const [employeeData, setEmployeeData] = useState([]);
 
   const fetchEmployee = async () => {
     try {
@@ -94,6 +97,12 @@ const EmployeeHome = () => {
   const handleConfirmClose = () => {
     setIsOpen(false);
     setDeletingID(0);
+    setIsModalOpen(false);
+  };
+
+  const handleOpenModal = (data) => {
+    setEmployeeData(data);
+    setIsModalOpen(true);
   };
 
   return (
@@ -133,6 +142,14 @@ const EmployeeHome = () => {
             },
           }}
           enableRowNumbers
+          muiTableBodyRowProps={({ row }) => ({
+            onClick: () => {
+              handleOpenModal(row.original);
+            },
+            sx: {
+              cursor: "pointer",
+            },
+          })}
           enableRowActions
           positionActionsColumn="last"
           renderRowActions={({ row, table }) => (
@@ -168,6 +185,14 @@ const EmployeeHome = () => {
             handleDelete={deleteEmployee}
           />
         )}
+        <EmployeeView
+          isOpen={isModalOpen}
+          handleClose={handleConfirmClose}
+          handleEdit={redirectToEdit}
+          employeeData={employeeData}
+          setDeletingID={setDeletingID}
+          setIsOpen={setIsOpen}
+        />
       </CardContent>
     </Card>
   );

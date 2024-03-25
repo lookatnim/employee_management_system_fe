@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import EmployeeForm from "../../components/EmployeeForm";
+import EmployeeForm from "../../components/Form/EmployeeForm";
 import Logo from "../../assets/images/EMS_Logo.png";
 import { Home } from "@mui/icons-material";
 import Axios from "axios";
@@ -83,7 +83,11 @@ const EmployeeAdd = () => {
         </Button>
       </CardActionArea>
       <CardContent>
-        <EmployeeForm initialValues={initialValues} onSubmit={handleSubmit} btnText='Submit'/>
+        <EmployeeForm
+          initialValues={initialValues}
+          onSubmit={handleSubmit}
+          btnText="Submit"
+        />
       </CardContent>
     </Card>
   );
