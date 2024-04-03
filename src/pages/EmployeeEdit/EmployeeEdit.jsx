@@ -28,6 +28,7 @@ const EmployeeEdit = () => {
     email: state.email,
     phoneNumber: state.phoneNumber,
     gender: state.gender,
+    salary: state.salary,
   };
 
   const handleUpdate = (values) => {
