@@ -65,13 +65,33 @@ const EmployeeHome = () => {
       {
         accessorKey: "phoneNumber",
         header: "Mobile Number",
+      },{
+        accessorKey: "salary",
+        header: "Salary",
+        Cell: ({ renderedCellValue }) => {
+          if (renderedCellValue !== null) {
+            const formattedValue = renderedCellValue.toLocaleString('en-US', {
+              style: 'currency',
+              currency: 'LKR',
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2
+            });
+            return <>{formattedValue}</>;
+          } else {
+            return null;
+          }
+        },  
+        Footer: () => {
+          const total = empData.reduce((sum, row) => sum + (row.salary || 0), 0);
+          return <>Total: {total.toLocaleString('en-US', { style: 'currency', currency: 'LKR' })}</>;
+        },
       },
       {
         accessorKey: "gender",
         header: "Gender",
       },
     ],
-    []
+    [empData]
   );
 
   const deleteEmployee = async () => {

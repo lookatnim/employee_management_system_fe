@@ -29,6 +29,9 @@ const validationSchema = Yup.object().shape({
     .matches(/^(?:\+?94)?(?:\(0\))?\d{9}$/, "Invalid LK phone number")
     .required("Phone number is required"),
   gender: Yup.string().required("Gender is required"),
+  salary: Yup.number()
+    .required("Salary is required")
+    .min(0, "Salary must be a positive number"),
 });
 
 const EmployeeForm = ({ initialValues, onSubmit, btnText }) => {
@@ -94,6 +97,22 @@ const EmployeeForm = ({ initialValues, onSubmit, btnText }) => {
                 }
                 helperText={
                   formik.touched.phoneNumber && formik.errors.phoneNumber
+                }
+                style={{ marginBottom: "10px" }}
+              />
+              <TextField
+                fullWidth
+                id="salary"
+                name="salary"
+                label="Salary"
+                value={formik.values.salary}
+                onChange={formik.handleChange}
+                error={
+                  formik.touched.phoneNumber &&
+                  Boolean(formik.errors.salary)
+                }
+                helperText={
+                  formik.touched.salary && formik.errors.salary
                 }
                 style={{ marginBottom: "10px" }}
               />

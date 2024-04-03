@@ -69,6 +69,12 @@ const EmployeeView = (props) => {
             <Typography variant="body1">{employeeData.phoneNumber}</Typography>
           </Grid>
           <Grid item xs={6}>
+            <Typography variant="subtitle1">Salary:</Typography>
+          </Grid>
+          <Grid item xs={6}>
+            <Typography variant="body1">{employeeData.salary}</Typography>
+          </Grid>
+          <Grid item xs={6}>
             <Typography variant="subtitle1">Gender:</Typography>
           </Grid>
           <Grid item xs={6}>

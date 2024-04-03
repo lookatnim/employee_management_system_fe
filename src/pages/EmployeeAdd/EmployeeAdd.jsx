@@ -26,6 +26,7 @@ const EmployeeAdd = () => {
     email: "",
     phoneNumber: "",
     gender: "",
+    salary:0
   };
 
   const handleSubmit = (values) => {
